@@ -1,0 +1,40 @@
+#include "resistors.h"
+
+
+Resistors::Resistors() { // пустой конструктор
+    number_ = "";
+    resist_ = 0;
+}
+
+Resistors::Resistors(const string& number,const double& resist) { // конструктор инициализации
+    number_ = number;
+    if (resist < 0) {
+        cout << "Incorrect value. Resist set to 0";
+        resist_ = 0;
+    }
+    else {
+        resist_ = resist;
+    }
+
+}
+
+Resistors::Resistors(const Resistors& r) { // конструктор копирования
+    number_ = r.number_;
+    resist_ = r.resist_;
+}
+
+string Resistors::getNumber() const{ // геттер номера
+    return number_;
+}
+
+double Resistors::getResist() const{ // геттер сопротивления
+    return resist_;
+}
+
+void Resistors::setNumber(const string &number) { // сеттер номера
+    number_ = number;
+}
+
+void Resistors::setResist(const double &resist) { // сеттер сопротивления
+    resist_ = resist;
+}

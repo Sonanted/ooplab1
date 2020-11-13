@@ -1,0 +1,28 @@
+#ifndef RESISTORS_H
+#define RESISTORS_H
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Resistors
+{
+public:
+    Resistors();
+    Resistors(const string& number,const double& resist);
+    Resistors(const Resistors& R);
+
+    string getNumber() const;
+    double getResist() const;
+
+    void setNumber(const string &number);
+    void setResist(const double &resist);
+
+private:
+    
+    string number_;
+    double resist_;
+};
+
+#endif // RESISTORS_H
