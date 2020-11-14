@@ -95,8 +95,8 @@ void collectionReadAndWriteToFile() {
     c.setResistor(0,1, r2);
     c.setResistor(1,0, r3);
     c.setResistor(1,1, r4);
-    c.saveCollection("ye.txt");
-    c2.loadCollection("ye.txt");
+    c.saveCollection("test.txt");
+    c2.loadCollection("test.txt");
     assert(c.getResistor(1,1).getResist() == c2.getResistor(1,1).getResist());
 }
 
