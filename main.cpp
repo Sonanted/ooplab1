@@ -132,8 +132,6 @@ int main()
     c.setResistor(0,1, r2);
     c.setResistor(1,0, r3);
     c.setResistor(1,1, r4);
-    c.saveCollection("ok.txt");
-    c2.loadCollection("ok.txt");
     printCollection(c); // поэлементный вывод на экран
 
 }
