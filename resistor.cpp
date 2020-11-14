@@ -6,7 +6,7 @@ Resistor::Resistor() { // конструктор по умолчанию
     resist_ = 0;
 }
 
-Resistor::Resistor(const string& number,const double& resist) { // конструктор инициализации
+Resistor::Resistor(const string& number,double resist) { // конструктор инициализации
     number_ = number;
     if (resist < 0) {
         cout << "Error: Incorrect value, resist value set to 0.\n";
@@ -22,11 +22,11 @@ Resistor::Resistor(const Resistor& r) { // конструктор копирования
     resist_ = r.getResist();
 }
 
-const string& Resistor::getNumber() const { // геттер номера
+string Resistor::getNumber() const { // геттер номера
     return number_;
 }
 
-const double& Resistor::getResist() const{ // геттер сопротивления
+double Resistor::getResist() const{ // геттер сопротивления
     return resist_;
 }
 

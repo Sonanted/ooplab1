@@ -1,37 +1,35 @@
 #ifndef COLLECTION_H
 #define COLLECTION_H
 #include "resistor.h"
+#include <iostream>
+#include <fstream>
 
 class Collection
 {
 public:
-    Collection(const int length_, const int width_);
-    Collection(const Collection& collection);
+    Collection(const int& l, const int& w); // конструктор инициализации
+    Collection(const Collection& c); // конструктор копировани€
 
-    const Resistor& getResistor(const int& len, const int& wid) const;
-    const int& getLength() const;
-    const int& getWidth() const;
-    const int& getSize() const;
+    Resistor getResistor(const int& length_pos, const int& width_pos) const; // метод доступа к элементу по индексу
+    int getLength() const;
+    int getWidth() const;
+    int getSize() const; // геттер числа хран€щихс€ объектов
+    double getCurrentFreq() const; // геттер частоты тока
+    double getCurrentSource(const int& len) const; // геттер списка источников тока
+    double getPotential(const int& number) const; // расчЄт потенциала
 
-    void setResistor(const int length, const int width, const Resistor& resistor);
-    void deleteCollection();
+    void setResistor(const int& length_pos, const int& width_pos, const Resistor& resistor); // сеттер элемента коллекции
+    void setCurrentFreq(const int& length, const int& width, const double& current_freq); // сеттер частоты тока
+    void setCurrentSource(double *c); // сеттер списка источников тока
+    void deleteCollection(); // метод, удал€ющий все хранимые объекты
+    void saveCollection(const Collection& c,const string& file_name) const; // метод сохранени€ в файл
+    void loadCollection(const string& file_name); // метод загрузки из файла
 
     bool operator == (const Collection& second);
 private:
     Resistor **resistors_;
-    int width_;
-    int length_;
-    int size_;
+    double *current_source_, current_freq_;
+    int width_, length_, size_;
 };
 
 #endif // COLLECTION_H
-
-// конструктор инициализации
-// конструктор копировани€
-// метод доступа к элементу по индексу
-// метод удал€ющий все хранимые объекты
-// метод возвращающий число хран€щихс€ объектов
-// метод дл€ записи в файл
-// метод дл€ выгрузки из файла
-// функци€ проверки двух коллекций на равенство (поэлементно)
-// функци€ последовательного и пронумерованного вывода элементов коллекции на экран

@@ -5,13 +5,13 @@
 
 using namespace std;
 
-void resistorEmptyConstructor() { // тест пустого конструктора
+void resistorEmptyConstructor() { // тест пустого конструктора класса
     Resistor resistor;
     assert(resistor.getNumber() == "");
     assert(resistor.getResist() == 0);
 }
 
-void resistorInitializationConstructor() { // тест конструктора инициализации
+void resistorInitializationConstructor() { // тест конструктора инициализации класса
     Resistor resistor1("ABC", 123);
     assert(resistor1.getNumber() == "ABC");
     assert(resistor1.getResist() == 123);
@@ -20,30 +20,30 @@ void resistorInitializationConstructor() { // тест конструктора инициализации
     assert(resistor2.getResist() == 0);
 }
 
-void resistorCopyConstructor() { // тест конструктора копирования
+void resistorCopyConstructor() { // тест конструктора копирования класса
     Resistor resistor1("10A", 11);
     Resistor resistor2(resistor1);
     assert(resistor2.getNumber() == "10A");
     assert(resistor1.getResist() == 11);
 }
 
-void resistorGetNumber() { // тест геттера номера
+void resistorGetNumber() { // тест геттера номера класса
     Resistor resistor("13M", 3);
     assert(resistor.getNumber() == "13M");
 }
 
-void resistorGetResist() { // тест геттера сопротивления
+void resistorGetResist() { // тест геттера сопротивления класса
     Resistor resistor("111", 222);
     assert(resistor.getResist() == 222);
 }
 
-void resistorSetNumber() { // тест сеттера номера
+void resistorSetNumber() { // тест сеттера номера класса
     Resistor resistor;
     resistor.setNumber("2B");
     assert(resistor.getNumber() == "2B");
 }
 
-void resistorSetResist() { // тест сеттера сопротивления
+void resistorSetResist() { // тест сеттера сопротивления класса
     Resistor resistor;
     resistor.setResist(40);
     assert(resistor.getResist() == 40);
@@ -51,21 +51,22 @@ void resistorSetResist() { // тест сеттера сопротивления
     assert(resistor.getResist() == 0);
 }
 
-void allResistorTests() { // вызов всех тестов
+void allResistorTests() { // вызов всех тестов класса
     resistorEmptyConstructor();
-    cout << "Empty constructor is OK\n";
+    cout << "Resistor Empty constructor is OK\n";
     resistorInitializationConstructor();
-    cout << "Initialization constructor is OK\n";
+    cout << "Resistor Initialization constructor is OK\n";
     resistorCopyConstructor();
-    cout << "Copy constructor is OK\n";
+    cout << "Resistor Copy constructor is OK\n";
     resistorGetNumber();
-    cout << "GetNumber method is OK\n";
+    cout << "Resistor GetNumber method is OK\n";
     resistorGetResist();
-    cout << "GetResist method is OK\n";
+    cout << "Resistor GetResist method is OK\n";
     resistorSetNumber();
-    cout << "SetNumber method is OK\n";
+    cout << "Resistor SetNumber method is OK\n";
     resistorSetResist();
-    cout <<"SetResist method is OK\n";
+    cout <<"Resistor SetResist method is OK\n";
+    cout <<"Resistor class is OK\n";
 }
 
 void collectionIntializationConstructor() { // тест конструктора инициализации коллекции
@@ -73,50 +74,55 @@ void collectionIntializationConstructor() { // тест конструктора инициализации к
     assert(collection.getSize() == 4 * 5);
 }
 
-void collectionCopyConstructor() {
+void collectionCopyConstructor() { // тест конструктора копирования коллекции
     Collection collection(2, 2);
     Collection collection2{collection};
     Resistor r("1",1);
     collection2.setResistor(1, 1, r);
-    if (collection == collection2) {
-        cout << "Copy constructor collection is OK";
-    }
+    assert(collection == collection2);
 }
 
 void collectionDestructor() {
     Collection collection(3, 2);
     collection.deleteCollection();
-    cout << collection.getSize() << '\n';
-    cout << collection.getWidth() << '\n';
-    cout << collection.getLength() << '\n';
+    assert(collection.getSize() == 0);
+    assert(collection.getWidth() == 0);
+    assert(collection.getLength() == 0);
 }
 
 void collectionReadAndWriteToFile() {
 
 }
 
-void compareCollections() {
-
+void allCollectionTests() {
+    collectionIntializationConstructor();
+    cout << "Collection initialization constructor is OK\n";
+    collectionCopyConstructor();
+    cout << "Collection copy constructor is OK\n";
+    collectionDestructor();
+    cout << "Collection destructor is OK\n";
+    cout << "Collection class is OK\n";
 }
 
-void collectionPrint() {
-
+void printCollection(const Collection& c) {
+    for (int i = 0; i < c.getLength(); i++) {
+        for (int j = 0; j < c.getWidth(); j++) {
+            cout << "resistor(" << i << ", " << j << "):\n";
+            cout << "number: " << c.getResistor(i,j).getNumber() << "\n";
+            cout << "resist: " << c.getResistor(i,j).getResist() << "\n\n";
+        }
+    }
 }
 
 int main()
 {
-    Collection collection(2, 2);
-    Collection collection2{collection};
-    Resistor r("1",1);
-    Resistor rr("2",2);
-    if (r != rr) {
-        cout << "no";
-    }
-    else {
-        cout << "yes";
-    }
-    collection2.setResistor(1, 1, r);
-    if (collection == collection2) {
-        cout << "Copy constructor collection is OK";
-    }
+    allResistorTests();
+    allCollectionTests();
+    Collection c(2, 2);
+    Resistor r1("1",1.1), r2("2", 2.2), r3("z", 3.3), r4("4", 4.4);
+    c.setResistor(0,0, r1);
+    c.setResistor(0,1, r2);
+    c.setResistor(1,0, r3);
+    c.setResistor(1,1, r4);
+    printCollection(c); // поэлементный вывод на экран
 }
