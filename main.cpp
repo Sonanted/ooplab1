@@ -77,8 +77,6 @@ void collectionIntializationConstructor() { // тест конструктора инициализации к
 void collectionCopyConstructor() { // тест конструктора копирования коллекции
     Collection collection(2, 2);
     Collection collection2{collection};
-    Resistor r("1",1);
-    collection2.setResistor(1, 1, r);
     assert(collection == collection2);
 }
 
@@ -91,7 +89,15 @@ void collectionDestructor() {
 }
 
 void collectionReadAndWriteToFile() {
-
+    Collection c(2,2), c2(2,2);
+    Resistor r1("1",1.1), r2("2", 2.2), r3("z", 3.3), r4("4", 4.4);
+    c.setResistor(0,0, r1);
+    c.setResistor(0,1, r2);
+    c.setResistor(1,0, r3);
+    c.setResistor(1,1, r4);
+    c.saveCollection("ye.txt");
+    c2.loadCollection("ye.txt");
+    assert(c.getResistor(1,1).getResist() == c2.getResistor(1,1).getResist());
 }
 
 void allCollectionTests() {
@@ -101,6 +107,8 @@ void allCollectionTests() {
     cout << "Collection copy constructor is OK\n";
     collectionDestructor();
     cout << "Collection destructor is OK\n";
+    collectionReadAndWriteToFile();
+    cout << "Collection read and write to file methods is OK\n";
     cout << "Collection class is OK\n";
 }
 
@@ -118,11 +126,14 @@ int main()
 {
     allResistorTests();
     allCollectionTests();
-    Collection c(2, 2);
+    Collection c(2, 2), c2(2, 2);
     Resistor r1("1",1.1), r2("2", 2.2), r3("z", 3.3), r4("4", 4.4);
     c.setResistor(0,0, r1);
     c.setResistor(0,1, r2);
     c.setResistor(1,0, r3);
     c.setResistor(1,1, r4);
+    c.saveCollection("ok.txt");
+    c2.loadCollection("ok.txt");
     printCollection(c); // поэлементный вывод на экран
+
 }

@@ -22,10 +22,10 @@ public:
     void setCurrentFreq(const int& length, const int& width, const double& current_freq); // сеттер частоты тока
     void setCurrentSource(double *c); // сеттер списка источников тока
     void deleteCollection(); // метод, удал€ющий все хранимые объекты
-    void saveCollection(const Collection& c,const string& file_name) const; // метод сохранени€ в файл
+    void saveCollection(const string& file_name) const; // метод сохранени€ в файл
     void loadCollection(const string& file_name); // метод загрузки из файла
 
-    bool operator == (const Collection& second);
+    bool operator == (const Collection& second) const;
 private:
     Resistor **resistors_;
     double *current_source_, current_freq_;

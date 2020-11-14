@@ -95,14 +95,14 @@ void Collection::setResistor(const int& length, const int& width, const Resistor
     }
 }
 
-void Collection::saveCollection(const Collection& c, const string& file_name) const { // метод сохранения в файл
+void Collection::saveCollection(const string& file_name) const { // метод сохранения в файл
     ofstream file;
     file.open(file_name);
-    file << c.getWidth() << "\n" << c.getLength() << "\n";
-    for (int i = 0; i < c.getWidth();i++){
-        for (int j = 0; j < c.getLength(); j++){
-                file << c.getResistor(i,j).getNumber() <<"\n";
-                file << c.getResistor(i,j).getResist() <<"\n";
+    file << getWidth() << "\n" << getLength() << "\n";
+    for (int i = 0; i < getWidth(); i++){
+        for (int j = 0; j < getLength(); j++){
+                file << getResistor(i,j).getNumber() <<"\n";
+                file << getResistor(i,j).getResist() <<"\n";
         }
     }
     file.close();
@@ -110,27 +110,28 @@ void Collection::saveCollection(const Collection& c, const string& file_name) co
 
 void Collection::loadCollection(const string& file_name) { // метод загрузки из файла
     int len, wid;
+    double res;
     ifstream file;
     file.open(file_name);
-    std::string str;
-    Resistor** resistors=NULL;
+    string str;
+    Resistor** resistors_=NULL;
     if(!file) {
         cout << "File error";
     }
     else {
         file >> len >> wid;
-        resistors = new Resistor *[len];
+        resistors_ = new Resistor *[len];
         for (int i = 0; i < len; i++) {
-            resistors[i] = new Resistor [wid];
+            resistors_[i] = new Resistor [wid];
             for (int j = 0; j < wid; j++) {
-                file >> str;
-            setResistor(i, j, Resistor());
+                file >> str >> res;
+                setResistor(i, j, Resistor(str, res));
             }
         }
     }
 }
 
-bool Collection::operator == (const Collection& second) {
+bool Collection::operator == (const Collection& second) const {
     if(length_ != second.getLength() && width_ != second.getWidth()) {
         return 0;
     }
