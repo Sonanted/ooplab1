@@ -22,6 +22,7 @@ Collection::Collection(const Collection& c) { // конструктор копирования
     width_ = c.getWidth();
     size_ = c.getSize();
     current_freq_ = c.getCurrentFreq();
+    current_source_ = c.current_source_;
     resistors_ = c.resistors_;
 }
 
