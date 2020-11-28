@@ -1,7 +1,10 @@
 #include <iostream>
 #include <assert.h>
+#include <QApplication>
+
 #include "resistor.h"
 #include "collection.h"
+#include "mainwindow.h"
 
 using namespace std;
 
@@ -122,7 +125,7 @@ void printCollection(const Collection& c) {
     }
 }
 
-int main()
+int main(int argc, char *argv[])
 {
     allResistorTests();
     allCollectionTests();
@@ -132,6 +135,14 @@ int main()
     c.setResistor(0,1, r2);
     c.setResistor(1,0, r3);
     c.setResistor(1,1, r4);
-    printCollection(c); // поэлементный вывод на экран
+    //printCollection(c); // поэлементный вывод на экран
+    Collection aa(1, 1), bb(2, 2);
+    printCollection(aa);
+    aa = bb;
+    printCollection(aa);
 
+    QApplication a(argc, argv);
+    MainWindow w;
+    w.show();
+    return a.exec();
 }

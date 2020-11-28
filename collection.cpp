@@ -9,7 +9,7 @@ Collection::Collection(const int& l, const int& w) { // конструктор инициализаци
         length_ = l;
         width_ = w;
         size_ = w * l;
-        current_freq_ = 0;
+        current_freq_ = 1;
         current_source_ = NULL;
     }
     else {
@@ -21,7 +21,7 @@ Collection::Collection(const Collection& c) { // конструктор копирования
     length_ = c.getLength();
     width_ = c.getWidth();
     size_ = c.getSize();
-    current_freq_ = c.getCurrentFreq();
+    current_freq_ = c.getFreq();
     current_source_ = c.current_source_;
     resistors_ = c.resistors_;
 }
@@ -53,11 +53,11 @@ int Collection::getSize() const { // геттер числа хранящихся объектов
     return size_;
 }
 
-double Collection::getCurrentFreq() const { // геттер частоты тока
+double Collection::getFreq() const { // геттер частоты тока
     return current_freq_;
 }
 
-double Collection::getCurrentSource(const int& length_pos) const { // геттер списка источников тока
+double Collection::getSource(const int& length_pos) const { // геттер списка источников тока
     return current_source_[length_pos];
 }
 
@@ -74,16 +74,21 @@ double Collection::getPotential(const int& i) const { // расчёт потенциала
     return (current_source_[i] - current_freq_) / resistors_[i % length_][i / width_].getResist();
 }
 
-void Collection::setCurrentFreq(const int& length, const int& width, const double& current_freq) { // сеттер частоты тока
+void Collection::setFreq(const int& length, const int& width, const double& current_freq) { // сеттер частоты тока
     if (0 <= length && length < length_ && 0 <= width && width < width_) {
-        current_freq_ = current_freq;
+        if (current_freq <= 0) {
+            current_freq_ = 1;
+        }
+        else {
+            current_freq_ = current_freq;
+        }
     }
     else {
         cout << "Error: Incorrect values.\n";
     }
 }
 
-void Collection::setCurrentSource(double *c) { // сеттер списка источников тока
+void Collection::setSource(double *c) { // сеттер списка источников тока
     current_source_ = c;
 }
 

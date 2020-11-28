@@ -10,7 +10,7 @@ class Resistor
 {
 public:
     Resistor();
-    Resistor(const string& number,double resist);
+    Resistor(const string& number, const double& resist);
     Resistor(const Resistor& r);
 
     string getNumber() const;
@@ -26,7 +26,5 @@ private:
     string number_;
     double resist_;
 };
-
-
 
 #endif // RESISTOR_H

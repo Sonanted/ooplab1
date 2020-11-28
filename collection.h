@@ -14,13 +14,13 @@ public:
     int getLength() const;
     int getWidth() const;
     int getSize() const; // геттер числа хранящихся объектов
-    double getCurrentFreq() const; // геттер частоты тока
-    double getCurrentSource(const int& len) const; // геттер списка источников тока
+    double getFreq() const; // геттер частоты тока
+    double getSource(const int& len) const; // геттер списка источников тока
     double getPotential(const int& number) const; // расчёт потенциала
 
     void setResistor(const int& length_pos, const int& width_pos, const Resistor& resistor); // сеттер элемента коллекции
-    void setCurrentFreq(const int& length, const int& width, const double& current_freq); // сеттер частоты тока
-    void setCurrentSource(double *c); // сеттер списка источников тока
+    void setFreq(const int& length, const int& width, const double& current_freq); // сеттер частоты тока
+    void setSource(double *c); // сеттер списка источников тока
     void deleteCollection(); // метод, удаляющий все хранимые объекты
     void saveCollection(const string& file_name) const; // метод сохранения в файл
     void loadCollection(const string& file_name); // метод загрузки из файла
