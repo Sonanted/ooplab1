@@ -1,16 +1,17 @@
 #include "collection.h"
 
-Collection::Collection(const int& l, const int& w) { // конструктор инициализации
-    if (l > 0 && w > 0) {
-        resistors_ = new Resistor *[l];
-        for (int i = 0; i < l; i++) {
-            resistors_[i] = new Resistor [w];
+Collection::Collection() {}
+
+Collection::Collection(const int& rows, const int& cols) { // конструктор инициализации
+    if (rows > 0 && cols > 0) {
+        resistors_ = new Resistor *[rows];
+        for (int i = 0; i < rows; i++) {
+            resistors_[i] = new Resistor [cols];
         }
-        length_ = l;
-        width_ = w;
-        size_ = w * l;
+        rows_ = rows;
+        cols_ = cols;
+        size_ = cols * rows;
         current_freq_ = 1;
-        current_source_ = NULL;
     }
     else {
         cout << "Error: Incorrect values.\n";
@@ -18,35 +19,33 @@ Collection::Collection(const int& l, const int& w) { // конструктор инициализаци
 }
 
 Collection::Collection(const Collection& c) { // конструктор копирования
-    length_ = c.getLength();
-    width_ = c.getWidth();
+    rows_ = c.getRows();
+    cols_ = c.getCols();
     size_ = c.getSize();
     current_freq_ = c.getFreq();
-    current_source_ = c.current_source_;
     resistors_ = c.resistors_;
 }
 
 void Collection::deleteCollection() { // метод, удаляющий все хранимые объекты
     if(resistors_) {
-        for (int i = 0; i < length_; i++) {
+        for (int i = 0; i < rows_; i++) {
             delete [] resistors_[i];
             resistors_[i] = NULL;
         }
         delete [] resistors_;
     }
-    length_ = 0;
-    width_ = 0;
+    rows_ = 0;
+    cols_ = 0;
     size_ = 0;
     current_freq_ = 0;
-    current_source_ = NULL;
 }
 
-int Collection::getLength() const { // геттер длины
-    return length_;
+int Collection::getRows() const { // геттер длины
+    return rows_;
 }
 
-int Collection::getWidth() const { // геттер ширины
-    return width_;
+int Collection::getCols() const { // геттер ширины
+    return cols_;
 }
 
 int Collection::getSize() const { // геттер числа хранящихся объектов
@@ -57,13 +56,9 @@ double Collection::getFreq() const { // геттер частоты тока
     return current_freq_;
 }
 
-double Collection::getSource(const int& length_pos) const { // геттер списка источников тока
-    return current_source_[length_pos];
-}
-
-Resistor Collection::getResistor(const int& length_pos, const int& width_pos) const { // метод доступа к элементу по индексу
-    if ((0 <= length_pos && length_pos < length_) && (0 <= width_pos && width_pos < width_)) {
-        return resistors_[length_pos][width_pos];
+Resistor Collection::getResistor(const int& rows_pos, const int& cols_pos) const { // метод доступа к элементу по индексу
+    if ((0 <= rows_pos && rows_pos < rows_) && (0 <= cols_pos && cols_pos < cols_)) {
+        return resistors_[rows_pos][cols_pos];
     }
     else {
         throw 1;
@@ -71,29 +66,21 @@ Resistor Collection::getResistor(const int& length_pos, const int& width_pos) co
 }
 
 double Collection::getPotential(const int& i) const { // расчёт потенциала
-    return (current_source_[i] - current_freq_) / resistors_[i % length_][i / width_].getResist();
+
+    return current_freq_ / resistors_[i / (cols_)][i % (cols_)].getResist();
 }
 
-void Collection::setFreq(const int& length, const int& width, const double& current_freq) { // сеттер частоты тока
-    if (0 <= length && length < length_ && 0 <= width && width < width_) {
-        if (current_freq <= 0) {
-            current_freq_ = 1;
-        }
-        else {
-            current_freq_ = current_freq;
-        }
+void Collection::setFreq(const double& current_freq) { // сеттер частоты тока
+    if (current_freq <= 0) {
+        current_freq_ = 1;
     }
     else {
-        cout << "Error: Incorrect values.\n";
+        current_freq_ = current_freq;
     }
-}
-
-void Collection::setSource(double *c) { // сеттер списка источников тока
-    current_source_ = c;
 }
 
 void Collection::setResistor(const int& length, const int& width, const Resistor& resistor) { // сеттер элемента коллекции
-    if (0 <= length && length < length_ && 0 <= width && width < width_) {
+    if (0 <= length && length < rows_ && 0 <= width && width < cols_) {
         resistors_[length][width] = resistor;
     }
     else {
@@ -104,9 +91,9 @@ void Collection::setResistor(const int& length, const int& width, const Resistor
 void Collection::saveCollection(const string& file_name) const { // метод сохранения в файл
     ofstream file;
     file.open(file_name);
-    file << getWidth() << "\n" << getLength() << "\n";
-    for (int i = 0; i < getWidth(); i++){
-        for (int j = 0; j < getLength(); j++){
+    file << getCols() << "\n" << getRows() << "\n";
+    for (int i = 0; i < getCols(); i++){
+        for (int j = 0; j < getRows(); j++){
                 file << getResistor(i,j).getNumber() <<"\n";
                 file << getResistor(i,j).getResist() <<"\n";
         }
@@ -138,12 +125,12 @@ void Collection::loadCollection(const string& file_name) { // метод загрузки из 
 }
 
 bool Collection::operator == (const Collection& second) const {
-    if(length_ != second.getLength() && width_ != second.getWidth()) {
+    if(rows_ != second.getRows() && cols_ != second.getCols()) {
         return 0;
     }
     else {
-        for (int i = 0; i < length_; i++) {
-            for (int j = 0; j < width_; j++) {
+        for (int i = 0; i < rows_; i++) {
+            for (int j = 0; j < cols_; j++) {
                 if(getResistor(i,j) != second.getResistor(i,j)) {
                     return 0;
                 }
@@ -151,4 +138,8 @@ bool Collection::operator == (const Collection& second) const {
         }
     }
     return 1;
+}
+
+Resistor* Collection::operator[](const int i) {
+    return resistors_[i];
 }

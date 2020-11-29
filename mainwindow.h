@@ -24,9 +24,22 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_comboBox_currentIndexChanged(const QString &arg1);
+
+    void on_comboBox_activated(int index);
+
+    void on_lineEdit_textEdited(const QString &arg1);
+
+    void on_pushButton_changechastota_clicked();
+
+    void on_pushButton_changenumber_clicked();
+
+    void on_pushButton_changeresist_clicked();
+
 private:
     Ui::MainWindow *ui;
     Collection col_;
+    int rows_, cols_;
 };
 
 #endif // MAINWINDOW_H

@@ -11,7 +11,7 @@ using namespace std;
 void resistorEmptyConstructor() { // тест пустого конструктора класса
     Resistor resistor;
     assert(resistor.getNumber() == "");
-    assert(resistor.getResist() == 0);
+    assert(resistor.getResist() == 1);
 }
 
 void resistorInitializationConstructor() { // тест конструктора инициализации класса
@@ -20,7 +20,7 @@ void resistorInitializationConstructor() { // тест конструктора инициализации кл
     assert(resistor1.getResist() == 123);
     Resistor resistor2("30F", -2);
     assert(resistor2.getNumber() == "30F");
-    assert(resistor2.getResist() == 0);
+    assert(resistor2.getResist() == 1);
 }
 
 void resistorCopyConstructor() { // тест конструктора копирования класса
@@ -51,7 +51,7 @@ void resistorSetResist() { // тест сеттера сопротивления класса
     resistor.setResist(40);
     assert(resistor.getResist() == 40);
     resistor.setResist(-40);
-    assert(resistor.getResist() == 0);
+    assert(resistor.getResist() == 1);
 }
 
 void allResistorTests() { // вызов всех тестов класса
@@ -87,8 +87,8 @@ void collectionDestructor() {
     Collection collection(3, 2);
     collection.deleteCollection();
     assert(collection.getSize() == 0);
-    assert(collection.getWidth() == 0);
-    assert(collection.getLength() == 0);
+    assert(collection.getCols() == 0);
+    assert(collection.getRows() == 0);
 }
 
 void collectionReadAndWriteToFile() {
@@ -116,8 +116,8 @@ void allCollectionTests() {
 }
 
 void printCollection(const Collection& c) {
-    for (int i = 0; i < c.getLength(); i++) {
-        for (int j = 0; j < c.getWidth(); j++) {
+    for (int i = 0; i < c.getRows(); i++) {
+        for (int j = 0; j < c.getCols(); j++) {
             cout << "resistor(" << i << ", " << j << "):\n";
             cout << "number: " << c.getResistor(i,j).getNumber() << "\n";
             cout << "resist: " << c.getResistor(i,j).getResist() << "\n\n";
@@ -138,8 +138,13 @@ int main(int argc, char *argv[])
     //printCollection(c); // поэлементный вывод на экран
     Collection aa(1, 1), bb(2, 2);
     printCollection(aa);
-    aa = bb;
+    Resistor zhopa = aa.getResistor(0,0);
+    zhopa.setNumber("kavo");
+    aa.setResistor(0,0,zhopa);
+    cout << aa.getResistor(0,0).getNumber();
     printCollection(aa);
+
+
 
     QApplication a(argc, argv);
     MainWindow w;
