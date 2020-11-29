@@ -135,16 +135,7 @@ int main(int argc, char *argv[])
     c.setResistor(0,1, r2);
     c.setResistor(1,0, r3);
     c.setResistor(1,1, r4);
-    //printCollection(c); // поэлементный вывод на экран
-    Collection aa(1, 1), bb(2, 2);
-    printCollection(aa);
-    Resistor zhopa = aa.getResistor(0,0);
-    zhopa.setNumber("kavo");
-    aa.setResistor(0,0,zhopa);
-    cout << aa.getResistor(0,0).getNumber();
-    printCollection(aa);
-
-
+    printCollection(c); // поэлементный вывод на экран
 
     QApplication a(argc, argv);
     MainWindow w;

@@ -18,17 +18,9 @@ public:
 
 private slots:
 
-    void on_lineEdit_stolbci_textChanged(const QString &arg1);
+    void on_pushButton_create_matrix_clicked();
 
-    void on_lineEdit_stroki_textChanged(const QString &arg1);
-
-    void on_pushButton_clicked();
-
-    void on_comboBox_currentIndexChanged(const QString &arg1);
-
-    void on_comboBox_activated(int index);
-
-    void on_lineEdit_textEdited(const QString &arg1);
+    void on_comboBox_resistor_activated(int index);
 
     void on_pushButton_changechastota_clicked();
 
