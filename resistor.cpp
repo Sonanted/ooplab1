@@ -9,7 +9,8 @@ Resistor::Resistor() { // конструктор по умолчанию
 Resistor::Resistor(const string& number,const double& resist) { // конструктор инициализации
     number_ = number;
     if (resist <= 0) {
-        cout << "Error: Incorrect value, resist value set to 1.\n";
+        cout << "Error: Resist can't be less than or equal to 0. ";
+        cout << "Resist value set to 1.\n";
         resist_ = 1;
     }
     else {
@@ -36,7 +37,8 @@ void Resistor::setNumber(const string &number) { // сеттер номера
 
 void Resistor::setResist(const double &resist) { // сеттер сопротивления
     if (resist <= 0) {
-        cout << "Error: Incorrect value, resist value set to 1.\n";
+        cout << "Error: Resist can't be less than or equal to 0. ";
+        cout << "Resist value set to 1.\n";
         resist_ = 1;
     }
     else {

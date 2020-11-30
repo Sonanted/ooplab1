@@ -80,20 +80,21 @@ void Collection::setFreq(const double& current_freq) { // сеттер частоты тока
 }
 
 void Collection::setResistor(const int& length, const int& width, const Resistor& resistor) { // сеттер элемента коллекции
-    if (0 <= length && length < rows_ && 0 <= width && width < cols_) {
+    //if (0 <= length && length < rows_ && 0 <= width && width < cols_) {
         resistors_[length][width] = resistor;
-    }
-    else {
-        cout << "Error: Incorrect values.\n";
-    }
+    //}
+    //else {
+     //   cout << "Error: Incorrect values.\n";
+    //}
 }
 
 void Collection::saveCollection(const string& file_name) const { // метод сохранения в файл
     ofstream file;
     file.open(file_name);
+    file << getFreq() << "\n";
     file << getCols() << "\n" << getRows() << "\n";
-    for (int i = 0; i < getCols(); i++){
-        for (int j = 0; j < getRows(); j++){
+    for (int i = 0; i < getRows(); i++){
+        for (int j = 0; j < getCols(); j++){
                 file << getResistor(i,j).getNumber() <<"\n";
                 file << getResistor(i,j).getResist() <<"\n";
         }
@@ -102,23 +103,28 @@ void Collection::saveCollection(const string& file_name) const { // метод сохран
 }
 
 void Collection::loadCollection(const string& file_name) { // метод загрузки из файла
-    int len, wid;
-    double res;
+    int rows, cols;
+    double res, freq;
     ifstream file;
     file.open(file_name);
     string str;
-    Resistor** resistors_=NULL;
+    Resistor** resistors_;
     if(!file) {
         cout << "File error";
     }
     else {
-        file >> len >> wid;
-        resistors_ = new Resistor *[len];
-        for (int i = 0; i < len; i++) {
-            resistors_[i] = new Resistor [wid];
-            for (int j = 0; j < wid; j++) {
+        file >> freq >> rows >> cols;
+        current_freq_ = freq;
+        rows_ = rows;
+        cols_ = cols;
+        resistors_ = new Resistor *[rows];
+        for (int i = 0; i < rows; i++) {
+            resistors_[i] = new Resistor [cols];
+            for (int j = 0; j < cols; j++) {
                 file >> str >> res;
-                setResistor(i, j, Resistor(str, res));
+                const double ress = res;
+                Resistor temp(str, ress);
+                setResistor(i, j, temp);
             }
         }
     }
