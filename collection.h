@@ -1,6 +1,7 @@
 #ifndef COLLECTION_H
 #define COLLECTION_H
 #include "resistor.h"
+#include "inductance.h"
 #include <iostream>
 #include <fstream>
 
@@ -18,7 +19,7 @@ public:
     double getFreq() const; // геттер частоты тока
     double getPotential(const int& number) const; // расчЄт потенциала
 
-    void setResistor(const int& length_pos, const int& width_pos, const Resistor& resistor); // сеттер элемента коллекции
+    void setResistor(const int& length, const int& width, const Resistor& resistor); // сеттер элемента коллекции
     void setFreq(const double& current_freq); // сеттер частоты тока
     void deleteCollection(); // метод, удал€ющий все хранимые объекты
     void saveCollection(const string& file_name) const; // метод сохранени€ в файл

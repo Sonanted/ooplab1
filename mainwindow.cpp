@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->pushButton_changechastota->setEnabled(false);
+    ui->pushButton_changefreq->setEnabled(false);
     ui->pushButton_changeresist->setEnabled(false);
     ui->pushButton_changenumber->setEnabled(false);
     ui->pushButton_changecapacity->setEnabled(false);
@@ -37,7 +37,7 @@ void MainWindow::on_pushButton_create_matrix_clicked()
     rows_ = ui->lineEdit_rows->text().toInt();
     Collection col(rows_, cols_);
     ui->comboBox_resistor->clear();
-    ui->pushButton_changechastota->setEnabled(true);
+    ui->pushButton_changefreq->setEnabled(true);
     ui->lineEdit_changechastota->setEnabled(true);
     ui->comboBox_resistor->setEnabled(true);
 
@@ -53,6 +53,20 @@ void MainWindow::on_pushButton_create_matrix_clicked()
     ui->label_freq->setText(QString::number(col_.getFreq()));
     ui->label_potential->setText(QString::number(col_.getPotential(ui->comboBox_resistor->currentIndex())));
     ui->comboBox_resistor->setCurrentIndex(-1);
+    ui->label_r_number->setText("");
+    ui->label_r_resist->setText("");
+    ui->pushButton_changeresist->setEnabled(false);
+    ui->pushButton_changenumber->setEnabled(false);
+    ui->pushButton_changecapacity->setEnabled(false);
+    ui->pushButton_changenumber_2->setEnabled(false);
+    ui->pushButton_changeresist_2->setEnabled(false);
+    ui->lineEdit_changenumber->setEnabled(false);
+    ui->lineEdit_changeresist->setEnabled(false);
+    ui->lineEdit_changechastota->setEnabled(false);
+    ui->lineEdit_changecapacity->setEnabled(false);
+    ui->lineEdit_changenumber_2->setEnabled(false);
+    ui->lineEdit_changeresist_2->setEnabled(false);
+    ui->pushButton_new->setEnabled(false);
 }
 
 void MainWindow::on_comboBox_resistor_activated(int index)
@@ -67,7 +81,7 @@ void MainWindow::on_comboBox_resistor_activated(int index)
     ui->pushButton_new->setEnabled(true);
 }
 
-void MainWindow::on_pushButton_changechastota_clicked()
+void MainWindow::on_pushButton_changefreq_clicked()
 {
     col_.setFreq(ui->lineEdit_changechastota->text().toDouble());
     ui->label_freq->setText(QString::number(col_.getFreq()));
@@ -104,7 +118,7 @@ void MainWindow::on_pushButton_new_clicked()
     QString str_tmp = "Inductance from Resistor No." + QString::number(index + 1);
     QString str_index = QString::number(index);
     int resist = col_.getResistor(index / cols_,index % cols_).getResist();
-    Inductance temp(number, resist);
+    Inductance temp(number, resist, 1);
     ind_.push_back(temp);
     ui->listWidget->addItem(str_tmp);
 }
@@ -225,7 +239,7 @@ void MainWindow::on_pushButton_load_clicked()
         col_.setFreq(freq);
     }
     ui->comboBox_resistor->clear();
-    ui->pushButton_changechastota->setEnabled(true);
+    ui->pushButton_changefreq->setEnabled(true);
     ui->lineEdit_changechastota->setEnabled(true);
     ui->comboBox_resistor->setEnabled(true);
     for (int i = 0; i < rows_; i++) {

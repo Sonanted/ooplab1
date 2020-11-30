@@ -65,6 +65,8 @@ Resistor Collection::getResistor(const int& rows_pos, const int& cols_pos) const
     }
 }
 
+
+
 double Collection::getPotential(const int& i) const { // расчёт потенциала
 
     return current_freq_ / resistors_[i / (cols_)][i % (cols_)].getResist();
@@ -80,12 +82,7 @@ void Collection::setFreq(const double& current_freq) { // сеттер частоты тока
 }
 
 void Collection::setResistor(const int& length, const int& width, const Resistor& resistor) { // сеттер элемента коллекции
-    //if (0 <= length && length < rows_ && 0 <= width && width < cols_) {
-        resistors_[length][width] = resistor;
-    //}
-    //else {
-     //   cout << "Error: Incorrect values.\n";
-    //}
+    resistors_[length][width] = resistor;
 }
 
 void Collection::saveCollection(const string& file_name) const { // метод сохранения в файл

@@ -5,9 +5,17 @@ Inductance::Inductance() :
     capacity_ = 1;
 }
 
-Inductance::Inductance(const string& number, const double& resist) :
+Inductance::Inductance(const string& number, const double& resist, const double& capacity) :
     Resistor(number, resist) {
-    capacity_ = 1;
+    if (capacity <= 0) {
+        cout << "Capacity can't be less than or equal to 0. ";
+        cout << "Capacity set to 1\n";
+        capacity_ = 1;
+    }
+    else {
+        capacity_ = capacity;
+    }
+
 }
 
 Inductance::Inductance(const Inductance& other) :
@@ -17,7 +25,8 @@ Inductance::Inductance(const Inductance& other) :
 
 void Inductance::setCapacity(const double& capacity) {
     if (capacity <= 0) {
-        cout << "Capacity can't be less than or equal to 0. Capacity set to 1\n";
+        cout << "Capacity can't be less than or equal to 0. ";
+        cout << "Capacity set to 1\n";
         capacity_ = 1;
     }
     else {

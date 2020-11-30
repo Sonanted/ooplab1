@@ -18,11 +18,11 @@ public:
 
     void setNumber(const string& number);
     void setResist(const double& resist);
+    virtual void setCapacity(const double& capacity);
 
     bool operator != (const Resistor& second) const;
 
 private:
-
     string number_;
     double resist_;
 };

@@ -271,7 +271,7 @@
      <x>450</x>
      <y>10</y>
      <width>201</width>
-     <height>111</height>
+     <height>124</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_15">
@@ -309,7 +309,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>450</x>
@@ -408,7 +408,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>230</x>
@@ -482,7 +482,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -512,7 +512,7 @@
        <widget class="QLineEdit" name="lineEdit_changechastota"/>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_changechastota">
+       <widget class="QPushButton" name="pushButton_changefreq">
         <property name="text">
          <string>Изменить</string>
         </property>
@@ -522,7 +522,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>450</x>

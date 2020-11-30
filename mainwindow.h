@@ -26,7 +26,7 @@ private slots:
 
     void on_comboBox_resistor_activated(int index);
 
-    void on_pushButton_changechastota_clicked();
+    void on_pushButton_changefreq_clicked();
 
     void on_pushButton_changenumber_clicked();
 
